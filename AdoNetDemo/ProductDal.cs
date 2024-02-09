@@ -15,7 +15,7 @@ namespace AdoNetDemo
         public List<Product> GetAll()
         {
             CheckConnection();
-            SqlCommand command = new SqlCommand("Select * from Products", _connection);
+            SqlCommand command = new SqlCommand("Select * from --your database table--", _connection);
             SqlDataReader reader = command.ExecuteReader();
 
             List<Product> products = new List<Product>();
@@ -37,11 +37,8 @@ namespace AdoNetDemo
         }
         public DataTable GetAll2()
         {
-            if (_connection.State == ConnectionState.Closed)
-            {
-                _connection.Open();
-            }
-            SqlCommand command = new SqlCommand("Select * from Products", _connection);
+            CheckConnection();
+            SqlCommand command = new SqlCommand("Select * from --your database table--", _connection);
             SqlDataReader reader = command.ExecuteReader();
             DataTable dataTable = new DataTable();
             dataTable.Load(reader);
@@ -61,7 +58,7 @@ namespace AdoNetDemo
         public void Add(Product product)
         {
             CheckConnection();
-            SqlCommand sqlCommand = new SqlCommand("insert into Products values(@name,@unitPrice,@stockAmount)", _connection);
+            SqlCommand sqlCommand = new SqlCommand("insert into --your database table-- values(@name,@unitPrice,@stockAmount)", _connection);
             sqlCommand.Parameters.AddWithValue("@name", product.Name);
             sqlCommand.Parameters.AddWithValue("@unitPrice", product.UnitPrice);
             sqlCommand.Parameters.AddWithValue("@stockAmount", product.StockAmount);
@@ -75,7 +72,7 @@ namespace AdoNetDemo
             CheckConnection();
 
             SqlCommand sqlCommand = new SqlCommand("" +
-                "update Products set Name=@name,UnitPrice=@unitPrice,StockAmount=@stockAmount where Id=@Id", _connection);
+                "update --your database table-- set Name=@name,UnitPrice=@unitPrice,StockAmount=@stockAmount where Id=@Id", _connection);
             sqlCommand.Parameters.AddWithValue("@name", product.Name);
             sqlCommand.Parameters.AddWithValue("@unitPrice", product.UnitPrice);
             sqlCommand.Parameters.AddWithValue("@stockAmount", product.StockAmount);
@@ -90,7 +87,7 @@ namespace AdoNetDemo
             CheckConnection();
 
             SqlCommand sqlCommand = new SqlCommand("" +
-                "delete from Products where Id=@Id", _connection);
+                "delete from --your database table-- where Id=@Id", _connection);
             sqlCommand.Parameters.AddWithValue("@Id", id);
             sqlCommand.ExecuteNonQuery();
 
